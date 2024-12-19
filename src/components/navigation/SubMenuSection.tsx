@@ -14,7 +14,7 @@ const SubMenuSection = ({ title, items }: SubMenuSectionProps) => {
   return (
     <div>
       <h4 className="text-sm font-medium leading-none mb-3 text-[#700100] text-left">{title}</h4>
-      <ul className="grid gap-3 p-4">
+      <ul className="grid gap-3 pl-0">
         {items.map((item) => (
           <ListItem 
             key={item.href}
