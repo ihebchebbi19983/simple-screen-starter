@@ -13,7 +13,7 @@ interface SubMenuSectionProps {
 const SubMenuSection = ({ title, items }: SubMenuSectionProps) => {
   return (
     <div>
-      <h4 className="text-sm font-medium leading-none mb-3 text-[#700100]">{title}</h4>
+      <h4 className="text-sm font-medium leading-none mb-3 text-[#700100] text-left">{title}</h4>
       <ul className="grid gap-3 p-4">
         {items.map((item) => (
           <ListItem 
