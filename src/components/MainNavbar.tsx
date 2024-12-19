@@ -1,310 +1,226 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import {
   NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
-import { cn } from "@/lib/utils";
-
-const ListItem = React.forwardRef<
-  React.ElementRef<"a">,
-  React.ComponentPropsWithoutRef<"a">
->(({ className, title, children, ...props }, ref) => {
-  return (
-    <li>
-      <NavigationMenuLink asChild>
-        <a
-          ref={ref}
-          className={cn(
-            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-            className
-          )}
-          {...props}
-        >
-          <div className="text-sm font-medium leading-none">{title}</div>
-          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-            {children}
-          </p>
-        </a>
-      </NavigationMenuLink>
-    </li>
-  );
-});
-ListItem.displayName = "ListItem";
+import NavMenuItem from './navigation/NavMenuItem';
+import SubMenuSection from './navigation/SubMenuSection';
 
 const MainNavbar = () => {
   return (
     <div className="absolute w-full z-20 text-center lg:top-[160px] top-[120px] px-4 font-['WomanFontBold']">
-      <NavigationMenu className="mx-auto">
+      <NavigationMenu className="mx-auto max-w-screen-2xl">
         <NavigationMenuList className="flex flex-col lg:flex-row lg:gap-14 gap-6 items-center">
           
-          {/* Le monde Fiori */}
-          <NavigationMenuItem>
-            <NavigationMenuTrigger className="text-[#700100] text-[16px] lg:text-[21px] hover:text-red-400 transition-colors bg-transparent">
-              Le monde Fiori
-            </NavigationMenuTrigger>
-            <NavigationMenuContent>
-              <div className="grid gap-3 p-6 md:w-[800px] lg:grid-cols-[.75fr_1fr]">
-                <div className="grid gap-3">
-                  <div className="grid grid-cols-2 gap-3">
-                    <div>
-                      <h4 className="text-sm font-medium leading-none mb-3 text-[#700100]">Collections</h4>
-                      <ul className="grid gap-3 p-4">
-                        <ListItem href="/category/le-monde-fiori/spring" title="Spring Collection">
-                          Discover our fresh spring designs
-                        </ListItem>
-                        <ListItem href="/category/le-monde-fiori/summer" title="Summer Collection">
-                          Light and breezy summer styles
-                        </ListItem>
-                      </ul>
-                    </div>
-                    <div>
-                      <h4 className="text-sm font-medium leading-none mb-3 text-[#700100]">Occasions</h4>
-                      <ul className="grid gap-3 p-4">
-                        <ListItem href="/category/le-monde-fiori/wedding" title="Wedding">
-                          Elegant wedding collections
-                        </ListItem>
-                        <ListItem href="/category/le-monde-fiori/party" title="Party">
-                          Festive party designs
-                        </ListItem>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex items-center justify-center p-4">
-                  <img
-                    src="/Articles/1.png"
-                    alt="Le Monde Fiori Collection"
-                    className="aspect-[4/3] object-cover rounded-lg"
-                  />
-                </div>
-              </div>
-            </NavigationMenuContent>
-          </NavigationMenuItem>
+          <NavMenuItem title="Le monde Fiori" image="/Articles/1.png">
+            <div className="grid grid-cols-2 gap-3">
+              <SubMenuSection
+                title="Collections"
+                items={[
+                  {
+                    href: "/category/le-monde-fiori/spring",
+                    title: "Spring Collection",
+                    description: "Discover our fresh spring designs"
+                  },
+                  {
+                    href: "/category/le-monde-fiori/summer",
+                    title: "Summer Collection",
+                    description: "Light and breezy summer styles"
+                  }
+                ]}
+              />
+              <SubMenuSection
+                title="Occasions"
+                items={[
+                  {
+                    href: "/category/le-monde-fiori/wedding",
+                    title: "Wedding",
+                    description: "Elegant wedding collections"
+                  },
+                  {
+                    href: "/category/le-monde-fiori/party",
+                    title: "Party",
+                    description: "Festive party designs"
+                  }
+                ]}
+              />
+            </div>
+          </NavMenuItem>
 
-          {/* L'univers Cadeaux */}
-          <NavigationMenuItem>
-            <NavigationMenuTrigger className="text-[#700100] text-[16px] lg:text-[21px] hover:text-red-400 transition-colors bg-transparent">
-              L'univers Cadeaux
-            </NavigationMenuTrigger>
-            <NavigationMenuContent>
-              <div className="grid gap-3 p-6 md:w-[800px] lg:grid-cols-[.75fr_1fr]">
-                <div className="grid gap-3">
-                  <div className="grid grid-cols-2 gap-3">
-                    <div>
-                      <h4 className="text-sm font-medium leading-none mb-3 text-[#700100]">Gift Types</h4>
-                      <ul className="grid gap-3 p-4">
-                        <ListItem href="/category/univers-cadeaux/personalized" title="Personalized Gifts">
-                          Custom-made special presents
-                        </ListItem>
-                        <ListItem href="/category/univers-cadeaux/corporate" title="Corporate Gifts">
-                          Professional gift solutions
-                        </ListItem>
-                      </ul>
-                    </div>
-                    <div>
-                      <h4 className="text-sm font-medium leading-none mb-3 text-[#700100]">Special Occasions</h4>
-                      <ul className="grid gap-3 p-4">
-                        <ListItem href="/category/univers-cadeaux/birthday" title="Birthday">
-                          Celebrate with unique gifts
-                        </ListItem>
-                        <ListItem href="/category/univers-cadeaux/anniversary" title="Anniversary">
-                          Memorable anniversary presents
-                        </ListItem>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex items-center justify-center p-4">
-                  <img
-                    src="/Articles/2.png"
-                    alt="L'univers Cadeaux Collection"
-                    className="aspect-[4/3] object-cover rounded-lg"
-                  />
-                </div>
-              </div>
-            </NavigationMenuContent>
-          </NavigationMenuItem>
+          <NavMenuItem title="L'univers Cadeaux" image="/Articles/2.png">
+            <div className="grid grid-cols-2 gap-3">
+              <SubMenuSection
+                title="Gift Types"
+                items={[
+                  {
+                    href: "/category/univers-cadeaux/personalized",
+                    title: "Personalized Gifts",
+                    description: "Custom-made special presents"
+                  },
+                  {
+                    href: "/category/univers-cadeaux/corporate",
+                    title: "Corporate Gifts",
+                    description: "Professional gift solutions"
+                  }
+                ]}
+              />
+              <SubMenuSection
+                title="Special Occasions"
+                items={[
+                  {
+                    href: "/category/univers-cadeaux/birthday",
+                    title: "Birthday",
+                    description: "Celebrate with unique gifts"
+                  },
+                  {
+                    href: "/category/univers-cadeaux/anniversary",
+                    title: "Anniversary",
+                    description: "Memorable anniversary presents"
+                  }
+                ]}
+              />
+            </div>
+          </NavMenuItem>
 
-          {/* Le prêt à porter */}
-          <NavigationMenuItem>
-            <NavigationMenuTrigger className="text-[#700100] text-[16px] lg:text-[21px] hover:text-red-400 transition-colors bg-transparent">
-              Le prêt à porter
-            </NavigationMenuTrigger>
-            <NavigationMenuContent>
-              <div className="grid gap-3 p-6 md:w-[800px] lg:grid-cols-[.75fr_1fr]">
-                <div className="grid gap-3">
-                  <div className="grid grid-cols-2 gap-3">
-                    <div>
-                      <h4 className="text-sm font-medium leading-none mb-3 text-[#700100]">Categories</h4>
-                      <ul className="grid gap-3 p-4">
-                        <ListItem href="/category/pret-a-porter/dresses" title="Dresses">
-                          Elegant dresses for all occasions
-                        </ListItem>
-                        <ListItem href="/category/pret-a-porter/tops" title="Tops">
-                          Stylish tops and blouses
-                        </ListItem>
-                      </ul>
-                    </div>
-                    <div>
-                      <h4 className="text-sm font-medium leading-none mb-3 text-[#700100]">Collections</h4>
-                      <ul className="grid gap-3 p-4">
-                        <ListItem href="/category/pret-a-porter/casual" title="Casual Wear">
-                          Comfortable daily fashion
-                        </ListItem>
-                        <ListItem href="/category/pret-a-porter/evening" title="Evening Wear">
-                          Stunning evening attire
-                        </ListItem>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex items-center justify-center p-4">
-                  <img
-                    src="/Articles/3.png"
-                    alt="Le prêt à porter Collection"
-                    className="aspect-[4/3] object-cover rounded-lg"
-                  />
-                </div>
-              </div>
-            </NavigationMenuContent>
-          </NavigationMenuItem>
+          <NavMenuItem title="Le prêt à porter" image="/Articles/3.png">
+            <div className="grid grid-cols-2 gap-3">
+              <SubMenuSection
+                title="Categories"
+                items={[
+                  {
+                    href: "/category/pret-a-porter/dresses",
+                    title: "Dresses",
+                    description: "Elegant dresses for all occasions"
+                  },
+                  {
+                    href: "/category/pret-a-porter/tops",
+                    title: "Tops",
+                    description: "Stylish tops and blouses"
+                  }
+                ]}
+              />
+              <SubMenuSection
+                title="Collections"
+                items={[
+                  {
+                    href: "/category/pret-a-porter/casual",
+                    title: "Casual Wear",
+                    description: "Comfortable daily fashion"
+                  },
+                  {
+                    href: "/category/pret-a-porter/evening",
+                    title: "Evening Wear",
+                    description: "Stunning evening attire"
+                  }
+                ]}
+              />
+            </div>
+          </NavMenuItem>
 
-          {/* Accessoires */}
-          <NavigationMenuItem>
-            <NavigationMenuTrigger className="text-[#700100] text-[16px] lg:text-[21px] hover:text-red-400 transition-colors bg-transparent">
-              Accessoires
-            </NavigationMenuTrigger>
-            <NavigationMenuContent>
-              <div className="grid gap-3 p-6 md:w-[800px] lg:grid-cols-[.75fr_1fr]">
-                <div className="grid gap-3">
-                  <div className="grid grid-cols-2 gap-3">
-                    <div>
-                      <h4 className="text-sm font-medium leading-none mb-3 text-[#700100]">Jewelry</h4>
-                      <ul className="grid gap-3 p-4">
-                        <ListItem href="/category/accessoires/necklaces" title="Necklaces">
-                          Elegant necklace collection
-                        </ListItem>
-                        <ListItem href="/category/accessoires/earrings" title="Earrings">
-                          Beautiful earring designs
-                        </ListItem>
-                      </ul>
-                    </div>
-                    <div>
-                      <h4 className="text-sm font-medium leading-none mb-3 text-[#700100]">Other Accessories</h4>
-                      <ul className="grid gap-3 p-4">
-                        <ListItem href="/category/accessoires/bags" title="Bags">
-                          Stylish bags and purses
-                        </ListItem>
-                        <ListItem href="/category/accessoires/scarves" title="Scarves">
-                          Luxurious scarves collection
-                        </ListItem>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex items-center justify-center p-4">
-                  <img
-                    src="/Articles/4.png"
-                    alt="Accessoires Collection"
-                    className="aspect-[4/3] object-cover rounded-lg"
-                  />
-                </div>
-              </div>
-            </NavigationMenuContent>
-          </NavigationMenuItem>
+          <NavMenuItem title="Accessoires" image="/Articles/4.png">
+            <div className="grid grid-cols-2 gap-3">
+              <SubMenuSection
+                title="Jewelry"
+                items={[
+                  {
+                    href: "/category/accessoires/necklaces",
+                    title: "Necklaces",
+                    description: "Elegant necklace collection"
+                  },
+                  {
+                    href: "/category/accessoires/earrings",
+                    title: "Earrings",
+                    description: "Beautiful earring designs"
+                  }
+                ]}
+              />
+              <SubMenuSection
+                title="Other Accessories"
+                items={[
+                  {
+                    href: "/category/accessoires/bags",
+                    title: "Bags",
+                    description: "Stylish bags and purses"
+                  },
+                  {
+                    href: "/category/accessoires/scarves",
+                    title: "Scarves",
+                    description: "Luxurious scarves collection"
+                  }
+                ]}
+              />
+            </div>
+          </NavMenuItem>
 
-          {/* Sur mesure */}
-          <NavigationMenuItem>
-            <NavigationMenuTrigger className="text-[#700100] text-[16px] lg:text-[21px] hover:text-red-400 transition-colors bg-transparent">
-              Sur mesure
-            </NavigationMenuTrigger>
-            <NavigationMenuContent>
-              <div className="grid gap-3 p-6 md:w-[800px] lg:grid-cols-[.75fr_1fr]">
-                <div className="grid gap-3">
-                  <div className="grid grid-cols-2 gap-3">
-                    <div>
-                      <h4 className="text-sm font-medium leading-none mb-3 text-[#700100]">Services</h4>
-                      <ul className="grid gap-3 p-4">
-                        <ListItem href="/category/sur-mesure/consultation" title="Consultation">
-                          Personal styling consultation
-                        </ListItem>
-                        <ListItem href="/category/sur-mesure/fitting" title="Fitting">
-                          Professional fitting service
-                        </ListItem>
-                      </ul>
-                    </div>
-                    <div>
-                      <h4 className="text-sm font-medium leading-none mb-3 text-[#700100]">Custom Items</h4>
-                      <ul className="grid gap-3 p-4">
-                        <ListItem href="/category/sur-mesure/dresses" title="Custom Dresses">
-                          Tailored dress creation
-                        </ListItem>
-                        <ListItem href="/category/sur-mesure/suits" title="Custom Suits">
-                          Bespoke suit tailoring
-                        </ListItem>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex items-center justify-center p-4">
-                  <img
-                    src="/NewCollection/Main.png"
-                    alt="Sur mesure Services"
-                    className="aspect-[4/3] object-cover rounded-lg"
-                  />
-                </div>
-              </div>
-            </NavigationMenuContent>
-          </NavigationMenuItem>
+          <NavMenuItem title="Sur mesure" image="/NewCollection/Main.png">
+            <div className="grid grid-cols-2 gap-3">
+              <SubMenuSection
+                title="Services"
+                items={[
+                  {
+                    href: "/category/sur-mesure/consultation",
+                    title: "Consultation",
+                    description: "Personal styling consultation"
+                  },
+                  {
+                    href: "/category/sur-mesure/fitting",
+                    title: "Fitting",
+                    description: "Professional fitting service"
+                  }
+                ]}
+              />
+              <SubMenuSection
+                title="Custom Items"
+                items={[
+                  {
+                    href: "/category/sur-mesure/dresses",
+                    title: "Custom Dresses",
+                    description: "Tailored dress creation"
+                  },
+                  {
+                    href: "/category/sur-mesure/suits",
+                    title: "Custom Suits",
+                    description: "Bespoke suit tailoring"
+                  }
+                ]}
+              />
+            </div>
+          </NavMenuItem>
 
-          {/* Outlet */}
-          <NavigationMenuItem>
-            <NavigationMenuTrigger className="text-[#700100] text-[16px] lg:text-[21px] hover:text-red-400 transition-colors bg-transparent">
-              Outlet
-            </NavigationMenuTrigger>
-            <NavigationMenuContent>
-              <div className="grid gap-3 p-6 md:w-[800px] lg:grid-cols-[.75fr_1fr]">
-                <div className="grid gap-3">
-                  <div className="grid grid-cols-2 gap-3">
-                    <div>
-                      <h4 className="text-sm font-medium leading-none mb-3 text-[#700100]">Seasonal Sales</h4>
-                      <ul className="grid gap-3 p-4">
-                        <ListItem href="/category/outlet/summer-sale" title="Summer Sale">
-                          Hot summer deals
-                        </ListItem>
-                        <ListItem href="/category/outlet/winter-sale" title="Winter Sale">
-                          Winter collection clearance
-                        </ListItem>
-                      </ul>
-                    </div>
-                    <div>
-                      <h4 className="text-sm font-medium leading-none mb-3 text-[#700100]">Special Offers</h4>
-                      <ul className="grid gap-3 p-4">
-                        <ListItem href="/category/outlet/clearance" title="Clearance">
-                          Final clearance items
-                        </ListItem>
-                        <ListItem href="/category/outlet/special-deals" title="Special Deals">
-                          Limited time offers
-                        </ListItem>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex items-center justify-center p-4">
-                  <img
-                    src="/NewCollection/Together We Feast.png"
-                    alt="Outlet Deals"
-                    className="aspect-[4/3] object-cover rounded-lg"
-                  />
-                </div>
-              </div>
-            </NavigationMenuContent>
-          </NavigationMenuItem>
+          <NavMenuItem title="Outlet" image="/NewCollection/Together We Feast.png">
+            <div className="grid grid-cols-2 gap-3">
+              <SubMenuSection
+                title="Seasonal Sales"
+                items={[
+                  {
+                    href: "/category/outlet/summer-sale",
+                    title: "Summer Sale",
+                    description: "Hot summer deals"
+                  },
+                  {
+                    href: "/category/outlet/winter-sale",
+                    title: "Winter Sale",
+                    description: "Winter collection clearance"
+                  }
+                ]}
+              />
+              <SubMenuSection
+                title="Special Offers"
+                items={[
+                  {
+                    href: "/category/outlet/clearance",
+                    title: "Clearance",
+                    description: "Final clearance items"
+                  },
+                  {
+                    href: "/category/outlet/special-deals",
+                    title: "Special Deals",
+                    description: "Limited time offers"
+                  }
+                ]}
+              />
+            </div>
+          </NavMenuItem>
 
         </NavigationMenuList>
       </NavigationMenu>
